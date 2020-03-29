@@ -1,11 +1,18 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
+
 import './menu-item.styles.scss';
 
-const MenuItem = ({ title, imgUrl, size }) => (
+const MenuItem = ({ title, imgUrl, size, history, match, linkUrl }) => ( //history prop comes from Route
     
 
+    <div 
     // can add the size as a class name passed from props
-    <div className={`menu-item ${size}`}>
+    className={`menu-item ${size}`} 
+    // we get history and match from Route
+    // push() is a function that comes with Route
+    onClick={() => {history.push(`${match.url}${linkUrl}`)}}
+    >
         <div className='background-image'
         // React passes a property called 'style' to each html tag
         // style can take an object value that can take props
@@ -23,4 +30,5 @@ const MenuItem = ({ title, imgUrl, size }) => (
     </div>
 )
 
-export default MenuItem;
+// this gives us access to props from Route (history, location, match)
+export default withRouter(MenuItem);
