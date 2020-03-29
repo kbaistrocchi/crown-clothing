@@ -52,12 +52,13 @@ class Directory extends React.Component {
                 // right inside the parameters section of the map()
                 // so .map() would normally have one parameter of 'section'
                 // but instead it will have the de-structured properties
-                    this.state.sections.map(({ title, imageUrl, id, size}) => (
+                    this.state.sections.map(({ title, imageUrl, id, size, linkUrl}) => (
                         <MenuItem 
                         title={title} 
                         key={id} 
                         imgUrl={imageUrl} 
                         size={size}
+                        linkUrl={linkUrl}
                         />
                     ))
                 }   
