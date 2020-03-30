@@ -22,15 +22,22 @@ class App extends React.Component {
     }
   }
 
+  unsubscribeFromAuth = null;
+
   componentDidMount() {
     // we use a method from the auth library
     // take function as param, and its param is the user state
     // then is sets ours state with that status
-    auth.onAuthStateChanged(user => {
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
       this.setState({ currentUser: user }); 
-      // this is an open subscription - always checking status
+      // this is an open subscription - always checking status even though it's only called ONCE
       //  and therefore needs to be closed  when the component is unmounted
+      // we can do this by calling it again in another lifecycle method
     });
+  }
+
+  componentWillUnmount() {
+    this.unsubscribeFromAuth();
   }
 
   render() {
