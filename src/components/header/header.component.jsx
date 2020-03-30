@@ -20,6 +20,7 @@ const Header = ({ currentUser }) => (
             <Link className='option' to='/shop'>
                 Contact
             </Link>
+            
             {/* conditionally render Sign In or Sign Out */}
             {
                 currentUser ?
