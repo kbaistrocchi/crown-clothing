@@ -17,7 +17,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {}
+    this.state = {
+      currentUser: null
+    }
+  }
+
+  componentDidMount() {
+    // we use a method from the auth library
+    // take function as param, and its param is the user state
+    // then is sets ours state with that status
+    auth.onAuthStateChanged(user => {
+      this.setState({ currentUser: user }); 
+      // this is an open subscription - always checking status
+      //  and therefore needs to be closed  when the component is unmounted
+    });
   }
 
   render() {
