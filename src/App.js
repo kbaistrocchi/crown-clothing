@@ -7,6 +7,7 @@ import './App.scss';
 import Homepage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
+import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sing-up.component';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
       <Switch>
         <Route exact path='/' component={Homepage} />
         <Route path='/shop' component={ShopPage} />
+        <Route path='/signin' component={SignInAndSignUpPage} />
         {/* Route provides access to 3 important properties:  match, history and location
             BUT, only to its FIRST child, not to their children
             In this case, Homepage and HatsPage, but not MenuItem or Directory, etc
