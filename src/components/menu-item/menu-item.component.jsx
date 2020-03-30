@@ -3,8 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import './menu-item.styles.scss';
 
-const MenuItem = ({ title, imgUrl, size, history, match, linkUrl }) => ( //history prop comes from Route
-    
+const MenuItem = ({ title, imageUrl, size, history, match, linkUrl }) => ( //history prop comes from Route
 
     <div 
     // can add the size as a class name passed from props
@@ -17,7 +16,7 @@ const MenuItem = ({ title, imgUrl, size, history, match, linkUrl }) => ( //histo
         // React passes a property called 'style' to each html tag
         // style can take an object value that can take props
         style={{
-            backgroundImage: `url(${imgUrl})`
+            backgroundImage: `url(${imageUrl})`
             // now, if our img url changes then our style changes
             // to make larger, can add a size prop that won't get used if no size prop exists
         }}></div>

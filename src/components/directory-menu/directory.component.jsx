@@ -48,18 +48,11 @@ class Directory extends React.Component {
         return (
             <div className='directory-menu'>
                 {   
-                // we can de-structure section into the variables we need
-                // right inside the parameters section of the map()
-                // so .map() would normally have one parameter of 'section'
-                // but instead it will have the de-structured properties
-                    this.state.sections.map(({ title, imageUrl, id, size, linkUrl}) => (
-                        <MenuItem 
-                        title={title} 
-                        key={id} 
-                        imgUrl={imageUrl} 
-                        size={size}
-                        linkUrl={linkUrl}
-                        />
+                // if the keys and values are exactly the same we can refactor the
+                // props with a spread operator 
+                // id is passed into 'key' and therefore is explicity declared in props  
+                    this.state.sections.map(({ id, ...restOfProps}) => (
+                        <MenuItem key={id} {...restOfProps} />
                     ))
                 }   
             </div>
