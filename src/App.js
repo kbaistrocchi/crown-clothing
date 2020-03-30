@@ -5,6 +5,7 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 
 import Homepage from './pages/homepage/homepage.component';
+import ShopPage from './pages/shop/shop.component';
 
 const SomePage = () => (
     <div>
@@ -21,7 +22,7 @@ function App() {
       {/* we wrap all the Route components in <Switch> so that only one will show at a time */}
       <Switch>
         <Route exact path='/' component={Homepage} />
-        <Route path='/somepath' component={SomePage} />
+        <Route path='/shop' component={ShopPage} />
         {/* Route provides access to 3 important properties:  match, history and location
             BUT, only to its FIRST child, not to their children
             In this case, Homepage and HatsPage, but not MenuItem or Directory, etc
