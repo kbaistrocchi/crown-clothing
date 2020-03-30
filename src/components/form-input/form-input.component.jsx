@@ -12,7 +12,12 @@ const FormInput = ({ handleChange, label, ...otherProps }) => (
         {/* selectively render a label element if the props was passed  */}
         {
             label ?
-            <label>{label}</label> :
+            // we want to dynamically add a className if a user has typed something in the input
+            // this way we can shrink the size of the label in css
+            // so we check that the user input (value) exists
+            <label className={`form-input-label ${otherProps.value.length ? 'shrink' : ''}`}>
+                {label}
+            </label> :   
             null
         }
     </div>
