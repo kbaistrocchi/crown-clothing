@@ -1,5 +1,5 @@
 import firebase from 'firebase/app';
-import 'firebse/firestroe';
+import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
@@ -20,7 +20,7 @@ const config = {
 
 // Google Authentication Utility
 
-  const provider = new firebase.auth.GoogleAuthPorvider();
+  const provider = new firebase.auth.GoogleAuthProvider();
 //   above gives us access to GoogleAuthentication class from the auth library
   provider.setCustomParameters({ prompt: 'select_account' });
 //   that class from above takes parameter which we can set using the setCustomParameters method
