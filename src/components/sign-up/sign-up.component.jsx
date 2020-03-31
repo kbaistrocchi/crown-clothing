@@ -19,6 +19,35 @@ class SignUp extends React.Component {
         }
     }
 
+    handleSubmit = async event => {
+        event.preventDefault();
+        
+        const { displayName, email, password, confirmPassword } = this.state;
+        
+        if(password !== confirmPassword) {
+            alert('passwords do not match');
+            return;
+        }
+
+        try {
+            // create a new user from the user input data
+            const { user } = await auth.createUserWithEmailAndPassword(email, password);
+            
+            // once new user is created, create a document(i.e. data) for the new user
+            await createUsrProfileDocument(user, { displayName });
+            
+            // then reset the state to be empty to clear the form
+            this.setState({
+                displayName: '',
+                email: '',
+                password: '',
+                confirmPassword: ''
+            })
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     render() {
         const { displayName, email, password, confirmPassword } = this.state;
 
@@ -54,7 +83,7 @@ class SignUp extends React.Component {
                     <FormInput
                     type='password'
                     name='confirmPassword'
-                    value={password}
+                    value={confirmPassword}
                     label='Confirm Password'
                     onChange={this.handleChange}
                     required
