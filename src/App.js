@@ -30,10 +30,21 @@ class App extends React.Component {
     // then is sets ours state with that status
 
     // this is now an API request and so is async
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
-      // this.setState({ currentUser: user }); INSTEAD of setting state, we use the 
-      // method createUserProfileDocument from firebase.utils.js
-      createUserProfileDocument(user)
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      if(userAuth) {
+        const userRef = await createUserProfileDocument(userAuth);
+        // for details on how this works, see video #91
+        userRef.onSnapshot(snapShot => { 
+          this.setState({
+            currentUser: {
+              id: snapShot.id,
+              ...snapShot.data()
+            }
+          }, () => console.log('this.state', this.state))
+        });
+      }
+      // if userAuth is null, then set currentUser to null
+      this.setState({ currentUser: userAuth });
       // this is an open subscription - always checking status even though it's only called ONCE
       //  and therefore needs to be closed  when the component is unmounted
       // we can do this by calling it again in another lifecycle method
