@@ -3,7 +3,7 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { auth, signInWithGoogle } from '../../firebase/firebase.utils';
 
 import './sign-in.styles.scss';
 
@@ -17,10 +17,19 @@ class SignIn extends React.Component {
         }
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault();
-        this.setState({'email': '', 'password': ''});
-    }
+
+        const { email, password }= this.state;
+        try {
+            await auth.signInWithEmailAndPassword(email, password);
+            this.setState({'email': '', 'password': ''});
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+
 
     handleChange = (e) => {
         // deconstruct to pull value and name off of e.target
@@ -29,7 +38,7 @@ class SignIn extends React.Component {
             // I think the [] are used in case it contains a space - it's safer
         this.setState({ [name]: value });
         // this allows us to pass the same function into both inputs below
-    }
+    };
  
     render() {
         return (
