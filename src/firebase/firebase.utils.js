@@ -13,6 +13,57 @@ const config = {
     measurementId: "G-92N21M5TJN"
   };
 
+  // This following function allows us to get the uid from the User Object returned
+  // with Google Sign In (userAuth), and store it in our db
+  // this will be async because it's an API request (we'll be using get an set)
+
+  // this function will be called whenever we need an OAuth object (so in App.js)
+  // inside componentWillMount()
+  
+  // we pass in the object and any additional data (which will be from user sign-
+  // up without Google), which will also be an object
+  export const createUserProfileDocument = async (userAuth, additionalData) => {
+  // first we want to make sure the user is logged in and the user object exists
+    if(!userAuth) return;   // if it doesn't exist, exit from function
+
+    // if it does exist, we need to query the firestore to see if there is a doc stored
+      // we do this with a .get()
+
+    const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+    const snapShot = await userRef.get();   // .get() pulls off a snapshot object
+    console.log(snapShot)
+
+    // if snapShot doesn't exist, then we want to CREATE a space for it in the db
+    if(!snapShot.exists) {
+      // as a rule, we need to use the documentRef() object to perform any CRUD methods
+        // before we create it, we want to determine which properties we will want to store
+        const { displayName, email } = userAuth;
+        const createdAt = new Date();
+
+        // we use .set() to create an object with the properties above and the additionalData
+        // which is an object itself
+        try {
+          await userRef.set({
+            displayName,
+            email,
+            createdAt,
+            ...additionalData
+          })
+
+        } catch (error) {
+          console.log('error creating user', error.message);
+        }
+    }
+    // ultimately, we want to return the userRef in case we need to use it in our code
+    return userRef;
+
+
+  }
+
+
+
+
   firebase.initializeApp(config);
 
   export const auth = firebase.auth();

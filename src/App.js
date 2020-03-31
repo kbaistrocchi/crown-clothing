@@ -8,7 +8,7 @@ import Homepage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sing-up.component';
-import { auth } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 
 // we want to store info on whether or not a user is logged in. 
 // So we need state, which means changing comp into a class comp
@@ -28,8 +28,12 @@ class App extends React.Component {
     // we use a method from the auth library
     // take function as param, and its param is the user state
     // then is sets ours state with that status
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-      this.setState({ currentUser: user }); 
+
+    // this is now an API request and so is async
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
+      // this.setState({ currentUser: user }); INSTEAD of setting state, we use the 
+      // method createUserProfileDocument from firebase.utils.js
+      createUserProfileDocument(user)
       // this is an open subscription - always checking status even though it's only called ONCE
       //  and therefore needs to be closed  when the component is unmounted
       // we can do this by calling it again in another lifecycle method
