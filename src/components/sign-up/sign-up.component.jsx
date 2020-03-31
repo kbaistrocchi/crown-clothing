@@ -3,9 +3,9 @@ import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-button/custom-button.component';
   
-import { auth, createUsrProfileDocument } from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-import './sign-up.styles';
+import './sign-up.styles.scss';
 
 class SignUp extends React.Component {
     constructor(props) {
@@ -34,7 +34,7 @@ class SignUp extends React.Component {
             const { user } = await auth.createUserWithEmailAndPassword(email, password);
             
             // once new user is created, create a document(i.e. data) for the new user
-            await createUsrProfileDocument(user, { displayName });
+            await createUserProfileDocument(user, { displayName });
             
             // then reset the state to be empty to clear the form
             this.setState({
