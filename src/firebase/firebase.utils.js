@@ -32,7 +32,6 @@ const config = {
     const userRef = firestore.doc(`users/${userAuth.uid}`);
 
     const snapShot = await userRef.get();   // .get() pulls off a snapshot object
-    console.log(snapShot)
 
     // if snapShot doesn't exist, then we want to CREATE a space for it in the db
     if(!snapShot.exists) {

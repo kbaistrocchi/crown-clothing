@@ -40,16 +40,16 @@ class App extends React.Component {
               id: snapShot.id,
               ...snapShot.data()
             }
-          }, () => console.log('this.state', this.state))
         });
-      }
+      });
+    }
       // if userAuth is null, then set currentUser to null
       this.setState({ currentUser: userAuth });
       // this is an open subscription - always checking status even though it's only called ONCE
       //  and therefore needs to be closed  when the component is unmounted
       // we can do this by calling it again in another lifecycle method
     });
-  }
+  }   // end componetDidMount function
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
