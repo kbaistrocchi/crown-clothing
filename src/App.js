@@ -40,7 +40,7 @@ class App extends React.Component {
               id: snapShot.id,
               ...snapShot.data()
             }
-        });
+        }, () => console.log(this.state));
       });
     }
       // if userAuth is null, then set currentUser to null
