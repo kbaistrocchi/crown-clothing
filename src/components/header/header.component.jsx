@@ -9,7 +9,7 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 
 import './header.styles.scss';
 
-const Header = ({ currentUser }) => (
+const Header = ({ currentUser, hidden }) => (
     <div className='header'>
         {/* the logo needs to link to homepage so we need Link from react-router-dom */}
         <Link className='logo-container' to='/'>
@@ -38,16 +38,30 @@ const Header = ({ currentUser }) => (
             }
             
             <CartIcon />
-        </div>
-        <CartDropdown />
+        </div> 
+        {/* Conditionally display cartDropdown */}
+        {
+            hidden ? null :
+            <CartDropdown />
+        }
     </div>
 )
 
 // this function will return an object with the property we want (can name it whatever)
 //  and its value will be from the state found in the root reducer
 
-const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+// const mapStateToProps = state => ({
+//     currentUser: state.user.currentUser
+// })
+//      ||
+//      \/
+// 
+// we can refactor above mapStateToProps for the new cart state, hidden.
+// to do this, we de-structure the state argument, but user and cart are nested so 
+// it looks like this:
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden }}) => ({
+    currentUser,
+    hidden
 })
 
 export default connect(mapStateToProps)(Header);
