@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
@@ -63,13 +63,25 @@ class App extends React.Component {
         <Switch>
           <Route exact path='/' component={Homepage} />
           <Route path='/shop' component={ShopPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
-          {/* Route provides access to 3 important properties:  match, history and location
-              BUT, only to its FIRST child, not to their children
-              In this case, Homepage and HatsPage, but not MenuItem or Directory, etc
-              In order for 'grandchildren' to get these props, we can use the 
-              withRouter from react-router-dom on the grandchild component
-          */}
+          {/* <Route path='/signin' component={SignInAndSignUpPage} /> 
+              Instead of using above line, we'll replace it with the following 
+              where render replaces component.
+              render() takes in some JS instead of just a component 
+              this way we can make 'Route' conditionally point to Redirect (from react-router-dom)
+              or to the singin/up comp page depending on whether the 
+              currentUser is signed in or not (curentUser is true or false) */}
+              <Route 
+                exact 
+                path='/signin' 
+                render={() => 
+                  this.props.currentUser ? (
+                    <Redirect to='/' />
+                  ) :
+                  (<SignInAndSignUpPage />)
+                }
+              />
+          
+          
         </Switch>
       
       </div>
@@ -78,6 +90,10 @@ class App extends React.Component {
   
 }
 
+const mapStateToProps = ({ user }) => ({    // { user } is de-structuring user from state
+  currentUser: user.currentUser
+});
+
 const mapDispatchToProps = dispatch => ({
 setCurrentUser: user => dispatch(setCurrentUser(user))
 })
@@ -85,4 +101,4 @@ setCurrentUser: user => dispatch(setCurrentUser(user))
 //  and sends it to every reducer
 
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
