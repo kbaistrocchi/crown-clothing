@@ -6,13 +6,11 @@ import './custom-button.styles.scss';
 
 const CustomButton = ({ children, isGoogleSignIn, inverted, ...otherProps }) => (
     <button 
-        className={`custom-button 
-                    ${isGoogleSignIn ? 'google-sign-in' : ''}
-                    ${inverted ? 'inverted' : ''}
-                    `} 
+        className={`custom-button ${isGoogleSignIn ? 'google-sign-in' : ''
+                    } ${inverted ? 'inverted' : ''}`} 
         {...otherProps}>  
         {/* otherProps could include type='submit' for example */}
-        
+
         {children}
             {/* children will be whatever is between the <CustomButton> tags
             i.e. the text we want on the button */}
