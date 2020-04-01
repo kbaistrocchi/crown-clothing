@@ -16,10 +16,10 @@ const Header = ({ currentUser }) => (
 
         <div className='options'>
             <Link className='option' to='/shop'>
-                Shop
+                SHOP
             </Link>
             <Link className='option' to='/shop'>
-                Contact
+                CONTACT
             </Link>
             
             {/* conditionally render Sign In or Sign Out */}
@@ -28,10 +28,10 @@ const Header = ({ currentUser }) => (
                 // if currentUser is an option then we provide a clickable option to sign out
                 // using the auth built-in method signout()
                 <div className='option' onClick={() => auth.signOut()}>
-                    Sign Out
+                    SIGN OUT
                 </div> :
                 <Link className='option' to='/signin'>
-                    Sign In
+                    SIGN IN
                 </Link>
             }
         </div>
