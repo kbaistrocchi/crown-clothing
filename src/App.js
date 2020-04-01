@@ -58,7 +58,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header />
         {/* Instead of rendering the component, we render the Route */}
         {/* Route will then point to the component which will be a page */}
         {/* we wrap all the Route components in <Switch> so that only one will show at a time */}

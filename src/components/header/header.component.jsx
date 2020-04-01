@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 import { auth } from '../../firebase/firebase.utils';
@@ -37,4 +38,11 @@ const Header = ({ currentUser }) => (
     </div>
 )
 
-export default Header;
+// this function will return an object with the property we want (can name it whatever)
+//  and its value will be from the state found in the root reducer
+
+const mapStateToProps = state => ({
+    currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header);
