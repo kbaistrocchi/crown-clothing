@@ -1,11 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 import { auth } from '../../firebase/firebase.utils';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { selectCartHidden } from '../../redux/cart/cart.selectors';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+
+import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
 import './header.styles.scss';
 
@@ -59,9 +63,19 @@ const Header = ({ currentUser, hidden }) => (
 // we can refactor above mapStateToProps for the new cart state, hidden.
 // to do this, we de-structure the state argument, but user and cart are nested so 
 // it looks like this:
-const mapStateToProps = ({ user: { currentUser }, cart: { hidden }}) => ({
-    currentUser,
-    hidden
+// const mapStateToProps = ({ user: { currentUser }, cart: { hidden }}) => ({
+//     currentUser,
+//     hidden
+// })
+// Using selectors, we can refactor this again
+//      ||
+//      \/
+// 
+// we can use createStructuredSelector() to pass state into each of it's properties
+// this save writing (state) in each property if there are a lot.
+const mapStateToProps = createStructuredSelector({
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 })
 
 export default connect(mapStateToProps)(Header);
