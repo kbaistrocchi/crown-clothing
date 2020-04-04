@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 
 import './App.scss';
@@ -11,6 +12,7 @@ import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sing-up.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
+import { selectCurrentUser } from './redux/user/user.selectors';
 
 // we want to store info on whether or not a user is logged in. 
 // So we need state, which means changing comp into a class comp
@@ -90,8 +92,15 @@ class App extends React.Component {
   
 }
 
-const mapStateToProps = ({ user }) => ({    // { user } is de-structuring user from state
-  currentUser: user.currentUser
+// const mapStateToProps = ({ user }) => ({    // { user } is de-structuring user from state
+//   currentUser: user.currentUser
+// });
+// refactor using selectors
+//      ||
+//      \/
+// 
+const mapStateToProps = createStructuredSelector({ 
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
