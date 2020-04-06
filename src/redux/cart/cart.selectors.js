@@ -21,6 +21,9 @@ export const selectCartItems = createSelector(
     cart => cart.cartItems
 );
 
+
+// this slice of state is taken from cartItems state. There is
+// no CartItemsCount state - it's only found here
 export const selectCartItemsCount = createSelector(
     // first argument - input selector(s), which was created above
     [selectCartItems],
@@ -33,4 +36,12 @@ export const selectCartItemsCount = createSelector(
 export const selectCartHidden = createSelector(
     [selectCart],
     (cart) => cart.hidden
-)
+);
+
+export const selectCartTotal = createSelector(
+    [selectCartItems],
+    (cartItems) => cartItems.reduce(
+        (accumulator, cartItem) => accumulator + cartItem.quantity * cartItem.price, 
+        0
+        )
+);
