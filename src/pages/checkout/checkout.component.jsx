@@ -32,7 +32,7 @@ const CheckoutPage = ({ cartItems, total }) => (
         {/* Check to make sure our props are working */}
         {
             cartItems.map(cartItem =>
-                <CheckoutItem cartItem={cartItem} />
+                <CheckoutItem key={cartItem.id} cartItem={cartItem} />
                 )
         }
         <div className='total'>
