@@ -40,3 +40,23 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
         // item object and adds the quantity property
     }
 }
+
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+    // find the cartItemToRemove from inside cartItems
+    const existingCartItem = cartItems.find(
+        cartItem => cartItem.id === cartItemToRemove.id
+    );
+    
+    // if quantity is 1  then remove item from cart
+    if(existingCartItem.quantity === 1) {
+        return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id)
+    }
+    // else, reduce quanitity by 1
+    else {
+        return cartItems.map(
+            cartItem => cartItem.id === cartItemToRemove.id 
+                ? { ...cartItem, quantity: cartItem.quantity - 1 }
+                : cartItem
+            );
+    };
+};
