@@ -14,9 +14,9 @@ const ShopPage = ({ match }) => (
         that's passed from Route of ShopPage */}
         <Route exact path={`${match.path}`} component={CollectionsOverview} /> 
 
-        {/* now we nest our Route. Our path will be determined by the 
-            component that it handles (in this case, CollectionPage). The ':' chains 
-            the parameter (from CollectionPage) onto the path  */}
+        {/* now we nest our Route. Our path uses the ':' to create a chains 
+            parameter called collectionId (or whatever we want) and then gives it
+            the value of whatever is typed (ex shop/couldBeAnything)  */}
         <Route path={`${match.path}/:collectionId`} component={CollectionPage} />
     </div>
 );
