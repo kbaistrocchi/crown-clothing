@@ -1,16 +1,5 @@
 import { createSelector } from 'reselect';
 
-// create an object that maps the id to the string corresponding to 
-// the collection name. This is so that the url param gets the 
-// proper collection
-const COLLECTION_ID_MAP = {
-    hats: 1,
-    sneakers: 2,
-    jackets: 3,
-    womens: 4,
-    mens: 5
-}
-
 const selectShop = state => state.shop;
 
 export const selectShopCollections =  createSelector(
@@ -23,8 +12,10 @@ export const selectShopCollections =  createSelector(
 export const selectCollection = collectionsUrlParam => 
 createSelector(
     [selectShopCollections],
-    collections =>  collections.find(
-        collection => collection.id === COLLECTION_ID_MAP[collectionsUrlParam]
-    )
+    // sifting through arrays can be very time consuming so
+    // we changed the shop_data to an object and can now
+    // simply find the object with the correct key rather than
+    // use a .find() on an array
+    collections =>  collections[collectionsUrlParam]
 );
 
