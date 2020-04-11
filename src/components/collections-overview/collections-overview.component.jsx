@@ -19,6 +19,11 @@ const CollectionsOverview = ({ collections }) => (
     </div>
 );
 
+// once we turned our Shop_Data into an object, this selector stopped working because
+// it's using map, an array method, not an object method. So, we need to get an array of
+// the objects keys using .keys() and then map over that array. This is all done
+// in the shop.selector file
+
 const mapStateToProps = createStructuredSelector({
     collections: selectShopCollections
 })
