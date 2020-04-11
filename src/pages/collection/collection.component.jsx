@@ -8,7 +8,7 @@ import { selectCollection } from '../../redux/shop/shop.selectors';
 import './collection.styles.scss';
 
 const CollectionPage = ({ collection }) => {
-    console.log('collection', collection);
+    const { title, items } = collection;
     // we need access to the each collection and it's properties
     // HOW?
     // at this point we can access the collection from the url
@@ -21,9 +21,16 @@ const CollectionPage = ({ collection }) => {
 
     // THIS WILL BE DONE THROUGH CURRYING
     return (
-        <div className='collection'>
-        <h2>Collection PAGE</h2>
-    </div>
+        <div className='collection-page'>
+            <h2>{title}</h2>
+            <div className='items'>
+                {
+                    items.map(item =>
+                        <CollectionItem key={item.id} item={item} />
+                        )
+                }
+            </div>
+        </div>
     )
     
 };
