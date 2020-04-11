@@ -1,11 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
+import { selectCollection } from '../../redux/shop/shop.selectors';
+
 import './collection.styles.scss';
 
-const CollectionPage = ({ match }) => {
-    console.log('match', match);
+const CollectionPage = ({ collection }) => {
+    console.log('collection', collection);
     // we need access to the each collection and it's properties
     // HOW?
     // at this point we can access the collection from the url
@@ -25,4 +28,11 @@ const CollectionPage = ({ match }) => {
     
 };
 
-export default CollectionPage;
+// because our selector takes in a parameter (url param), we need
+// to use the second optional arg in mapState function, which is the props of the component  
+const mapStateToProps = (state, ownProps) => ({
+    // this is called currying, as we're passing two arguments separately
+    collection: selectCollection(ownProps.match.params.collectionId)(state)
+})
+
+export default connect(mapStateToProps)(CollectionPage);
