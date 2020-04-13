@@ -1,4 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled
+    //  { css } 
+     from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const HeaderContainer = styled.div`
@@ -31,15 +33,23 @@ export const OptionsContainer = styled.div`
 // using sting interpolation
 
 // normally this would sit at top of page
-const OptionContainerStyles = css`
+// const OptionContainerStyles = css`
+//     padding: 10px 15px;
+//     cursor: pointer;
+// `;
+
+// export const OptionDiv = styled.div`
+//     ${OptionContainerStyles}
+// `;
+
+// export const OptionLink = styled(Link)`
+//     ${OptionContainerStyles}
+// `;
+
+// Alternatively, we can just insert the OptionLink (for example) but
+// add as='div' inline and that will use the same styles as OptionLink but make it a div
+// therefore less code
+export const OptionLink = styled(Link)`
     padding: 10px 15px;
     cursor: pointer;
-`;
-
-export const OptionDiv = styled.div`
-    ${OptionContainerStyles}
-`;
-
-export const OptionLink = styled(Link)`
-    ${OptionContainerStyles}
 `;

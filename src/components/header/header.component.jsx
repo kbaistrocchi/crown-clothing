@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -11,7 +10,12 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
-import { HeaderContainer, LogoContainer, OptionsContainer, OptionDiv, OptionLink } from './header.styles';
+import { HeaderContainer, 
+        LogoContainer, 
+        OptionsContainer , 
+        OptionLink 
+        // OptionDiv
+    } from './header.styles';
 
 const Header = ({ currentUser, hidden }) => (
     <HeaderContainer>
@@ -33,9 +37,9 @@ const Header = ({ currentUser, hidden }) => (
                 currentUser ?
                 // if currentUser is an option then we provide a clickable option to sign out
                 // using the auth built-in method signout()
-                <OptionDiv onClick={() => auth.signOut()}>
+                <OptionLink as='div' onClick={() => auth.signOut()}>
                     SIGN OUT
-                </OptionDiv> :
+                </OptionLink> :
                 <OptionLink to='/signin'>
                     SIGN IN
                 </OptionLink>
