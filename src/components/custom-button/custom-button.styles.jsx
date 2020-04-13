@@ -35,7 +35,7 @@ const getButtonStyles = (props) => {
 
     return props.inverted ? invertedButtonStyles : commonStyles;
     
-}
+};
 
 export const CustomButtonContainer = styled.button`
     min-width: 165px;
