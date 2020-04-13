@@ -11,44 +11,44 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 
 import { ReactComponent as Logo } from '../../assets/crown-logo.svg';
 
-import './header.styles.scss';
+import { HeaderContainer, LogoContainer, OptionsContainer, OptionDiv, OptionLink } from './header.styles';
 
 const Header = ({ currentUser, hidden }) => (
-    <div className='header'>
+    <HeaderContainer>
         {/* the logo needs to link to homepage so we need Link from react-router-dom */}
-        <Link className='logo-container' to='/'>
+        <LogoContainer to='/'>
             <Logo className='logo' />
-        </Link>
+        </LogoContainer>
 
-        <div className='options'>
-            <Link className='option' to='/shop'>
+        <OptionsContainer>
+            <OptionLink to='/shop'>
                 SHOP
-            </Link>
-            <Link className='option' to='/shop'>
+            </OptionLink>
+            <OptionLink to='/shop'>
                 CONTACT
-            </Link>
+            </OptionLink>
             
             {/* conditionally render Sign In or Sign Out */}
             {
                 currentUser ?
                 // if currentUser is an option then we provide a clickable option to sign out
                 // using the auth built-in method signout()
-                <div className='option' onClick={() => auth.signOut()}>
+                <OptionDiv onClick={() => auth.signOut()}>
                     SIGN OUT
-                </div> :
-                <Link className='option' to='/signin'>
+                </OptionDiv> :
+                <OptionLink to='/signin'>
                     SIGN IN
-                </Link>
+                </OptionLink>
             }
             
             <CartIcon />
-        </div> 
+        </OptionsContainer> 
         {/* Conditionally display cartDropdown */}
         {
             hidden ? null :
             <CartDropdown />
         }
-    </div>
+    </HeaderContainer>
 )
 
 // this function will return an object with the property we want (can name it whatever)
