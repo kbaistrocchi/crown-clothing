@@ -22,12 +22,18 @@ const invertedButtonStyles = css`
     }
 `;
 
+const commonStyles = css`
+    background-color: black;
+    color: white;
+    border: none;
+`;
+
 const getButtonStyles = (props) => {
     if(props.isGoogleSignIn) {
         return googleSignInStyles;
     }
 
-    return props.inverted ? invertedButtonStyles : null
+    return props.inverted ? invertedButtonStyles : commonStyles;
     
 }
 
@@ -39,12 +45,9 @@ export const CustomButtonContainer = styled.button`
     line-height: 50px;
     padding: 0 35px 0 35px;
     font-size: 15px;
-    background-color: black;
-    color: white;
     text-transform: uppercase;
     font-family: 'Open Sans Condensed';
     font-weight: bolder;
-    border: none;
     cursor: pointer;
     display: flex;
     justify-content: center;
