@@ -58,7 +58,7 @@ const config = {
     return userRef;
   }
 
-  //  make util for the store_data object
+  //  This function can be re-used to update or add data to Firestore
   export const addCollectionAndDocuments = async (collectionKay, objectsToAdd) => {
     // create the collection using collectionKey
     const collectionRef = firestore.collection(collectionKay);
