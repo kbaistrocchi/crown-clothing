@@ -56,8 +56,25 @@ const config = {
     }
     // ultimately, we want to return the userRef in case we need to use it in our code
     return userRef;
+  }
 
+  //  make util for the store_data object
+  export const addCollectionAndDocuments = async (collectionKay, objectsToAdd) => {
+    // create the collection using collectionKey
+    const collectionRef = firestore.collection(collectionKay);
+    console.log(collectionRef);
 
+    // with Firestore we can only add one item at a time
+    // if one fails for some reason, we may not know, making the code unpredictable
+    // So, we batch everything so that it either all succeeds or all fails
+    const batch = firestore.batch();
+    objectsToAdd.forEach( obj => {
+      // create a doc ref for each item but create a unique id for each (doc.(empty))
+      const newDocRef = collectionRef.doc();
+      batch.set(newDocRef, obj);
+    });
+
+    return await batch.commit(); 
   }
 
 

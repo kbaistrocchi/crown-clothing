@@ -12,9 +12,10 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sing-up
 import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, createUserProfileDocument, addCollectionAndDocuments } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { selectCollectionsForPreview } from './redux/shop/shop.selectors';
 
 // we want to store info on whether or not a user is logged in. 
 // So we need state, which means changing comp into a class comp
@@ -25,7 +26,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // we're using this method more than once so we can de-structure it
-    const { setCurrentUser } = this.props;
+    const { setCurrentUser, collectionsArray } = this.props;
 
     // we use a method from the auth library
     // take function as param, and its param is the user state
@@ -50,8 +51,14 @@ class App extends React.Component {
       // this is an open subscription - always checking status even though it's only called ONCE
       //  and therefore needs to be closed  when the component is unmounted
       // we can do this by calling it again in another lifecycle method
+
+      // for details about how and why we're using the following, see video #160
+        // because we don't want the db to have info like the routeName and id
+        // (because we ask firebase to make those up)
+        // we can pass a new array made from .map()
+      addCollectionAndDocuments('collections', collectionsArray.map(({title, items}) => ({title, items}) ))
     });
-  }   // end componetDidMount function
+  }   // end componentDidMount function
 
   componentWillUnmount() {
     this.unsubscribeFromAuth();
@@ -104,7 +111,8 @@ class App extends React.Component {
 //      \/
 // 
 const mapStateToProps = createStructuredSelector({ 
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  collectionsArray: selectCollectionsForPreview
 });
 
 const mapDispatchToProps = dispatch => ({
