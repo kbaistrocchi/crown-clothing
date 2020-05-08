@@ -75,7 +75,31 @@ const config = {
     });
 
     return await batch.commit(); 
+  };
+
+  // COLLECTIONS DATA
+  // this method will shape the 'collections' data that we receive and in shop.component
+  // it takes in the entire snapshot and converts it from an array to an object
+  export const convertCollectionsSnapshotToMap = (collections) => {
+    // we want to make sure we get the right object with the properties we need
+      // we want the collections.docs that can be found by console.log(snapshot)
+      // in shop.component
+    const transformedCollection = collections.docs.map(doc => {
+      // for each doc object, pull off title and items
+      const { title, items } = doc.data();
+      // return an object that represents the final object needed for the front end
+      return {
+        // use encodeURI to convert any characters that can't be read as a url
+        routeName: encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items
+      }
+    });
+    console.log(transformedCollection);
   }
+
+
 
 
 
