@@ -22,7 +22,8 @@ class ShopPage extends React.Component {
         console.log('snapshot', snapshot);
         // in order to shape the data the way we want and add info we may need in this
         // particular web app, we will write a function in firebase.utils.js
-        convertCollectionsSnapshotToMap(snapshot);
+        const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
+        console.log(collectionsMap);
     })
     }
 

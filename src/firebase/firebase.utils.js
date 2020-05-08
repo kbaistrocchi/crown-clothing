@@ -96,7 +96,16 @@ const config = {
         items
       }
     });
-    console.log(transformedCollection);
+    // console.log(transformedCollection);
+
+    // transform collections array into an object
+      // use a reducer with an empty object as the initialValue
+    return transformedCollection.reduce((accumulator, collection) => {
+      // make an initial property with the name of the collection
+        // it's value will then be the collection object
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    }, {})
   }
 
 
