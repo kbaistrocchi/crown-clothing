@@ -13,7 +13,7 @@ export const selectCollectionsForPreview = createSelector(
     [selectShopCollections],
     // shop.collections is now an object rather than array
     // so Object.keys(xxx) returns an array of xxx's keys
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => collections ? Object.keys(collections).map(key => collections[key]) : []
     // then, we map over that array and for each key we return the collections 
     // value that is associated with it
 )
@@ -27,6 +27,6 @@ createSelector(
     // we changed the shop_data to an object and can now
     // simply find the object with the correct key rather than
     // use a .find() on an array
-    collections =>  collections[collectionsUrlParam]
+    collections =>  (collections ? collections[collectionsUrlParam] : null)
 );
 
